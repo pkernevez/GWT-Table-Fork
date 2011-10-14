@@ -18,11 +18,11 @@ package it.pianetatecno.gwt.utility.client.table;
 import java.io.Serializable;
 
 /**
- * This class represent the model that must be used with {@code PagingTable}.
- * This class define an abstract method requestRows that will be implement
- * from the user to retrieve his data from the server. *
+ * This class represent the model that must be used with {@code PagingTable}. This class define an abstract method
+ * requestRows that will be implement from the user to retrieve his data from the server. *
  */
-public abstract class TableModel<RowType extends Serializable> {
+public abstract class TableModel<RowType extends Serializable>
+{
 
     public abstract void requestRows(final Request request, final Callback<RowType> callback);
 

@@ -21,98 +21,115 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
- * The Request object must be send to the server in order to require some data.
- * The Request contains the filter list (will be apply to data), the sorting
- * (ASC,DESC), the start row and the limit.
+ * 
+ * The Request object must be send to the server in order to require some data. The Request contains the filter list
+ * (will be apply to data), the sorting (ASC,DESC), the start row and the limit.
  */
-public class Request implements Serializable{
+public class Request implements Serializable
+{
     private static final long serialVersionUID = 1L;
 
     private int startRow = 1;
+
     private int pageSize;
-    //The list of filters that will be applied to data
-    private List<Filter> filters = new LinkedList<Filter>();
-    //The name of the sorting column
+
+    // The list of filters that will be applied to data
+    private List<Filter<?>> filters = new LinkedList<Filter<?>>();
+
+    // The name of the sorting column
     private String sortingColumn;
-    //The type of sorting
-    private int sortType;   
- 
+
+    // The type of sorting
+    private int sortType;
+
     /**
      * Clear all filters previously added.
      */
-    public void clearFilters(){
-        if(getFilters() != null)
+    public void clearFilters()
+    {
+        if (getFilters() != null)
+        {
             getFilters().clear();
-    }     
+        }
+    }
 
     /**
      * @return the sortType
      */
-    public int getSortType() {
+    public int getSortType()
+    {
         return sortType;
     }
 
     /**
      * @param sortType the sortType to set
      */
-    public void setSortType(int sortType) {
+    public void setSortType(int sortType)
+    {
         this.sortType = sortType;
     }
 
     /**
      * @return the startRow
      */
-    public int getStartRow() {
+    public int getStartRow()
+    {
         return startRow;
     }
 
     /**
      * @param startRow the startRow to set
      */
-    public void setStartRow(int startRow) {
+    public void setStartRow(int startRow)
+    {
         this.startRow = startRow;
     }
 
     /**
      * @return the sortingColumn
      */
-    public String getSortingColumn() {
+    public String getSortingColumn()
+    {
         return sortingColumn;
     }
 
     /**
      * @param sortingColumn the sortingColumn to set
      */
-    public void setSortingColumn(String sortingColumn) {
+    public void setSortingColumn(String sortingColumn)
+    {
         this.sortingColumn = sortingColumn;
     }
 
     /**
      * @return the pageSize
      */
-    public int getPageSize() {
+    public int getPageSize()
+    {
         return pageSize;
     }
 
     /**
      * @param pageSize the pageSize to set
      */
-    public void setPageSize(int pageSize) {
+    public void setPageSize(int pageSize)
+    {
         this.pageSize = pageSize;
     }
 
     /**
      * @return the filters
      */
-    public List<Filter> getFilters() {
+    public List<Filter<?>> getFilters()
+    {
         return filters;
     }
 
     /**
      * @param filters the filters to set
      */
-    public void setFilters(List<Filter> filters) {
+    public void setFilters(List<Filter<?>> filters)
+    {
         this.filters = filters;
     }
 }
