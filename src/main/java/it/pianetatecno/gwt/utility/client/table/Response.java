@@ -19,18 +19,22 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * The Respose is returned from the server to the client. The object contains
- * the number of total results and the start row index. It's abstract so the
- * {@code SerializableResponse} can implements abract methods.
- *
+ * The Respose is returned from the server to the client. The object contains the number of total results and the start
+ * row index. It's abstract so the {@code SerializableResponse} can implements abract methods.
+ * 
  * @param <RowType>
  */
-public abstract class Response<RowType> implements Serializable {
+public abstract class Response<RowType> implements Serializable
+{
+
+    private static final long serialVersionUID = -6175331798611533885L;
 
     protected int totalResults;
+
     protected int startRow;
 
-    public Response() {
+    public Response()
+    {
     }
 
     /**
@@ -41,28 +45,32 @@ public abstract class Response<RowType> implements Serializable {
     /**
      * @return the totalResults
      */
-    public int getTotalResults() {
+    public int getTotalResults()
+    {
         return totalResults;
     }
 
     /**
      * @param totalResults the totalResults to set
      */
-    public void setTotalResults(int totalResults) {
+    public void setTotalResults(int totalResults)
+    {
         this.totalResults = totalResults;
     }
 
     /**
      * @return the startRow
      */
-    public int getStartRow() {
+    public int getStartRow()
+    {
         return startRow;
     }
 
     /**
      * @param startRow the startRow to set
      */
-    public void setStartRow(int startRow) {
+    public void setStartRow(int startRow)
+    {
         this.startRow = startRow;
     }
 }

@@ -53,7 +53,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
 
     private TableModel<RowType> model;
 
-    private ColumnDefinition columnDefinition;
+    private ColumnDefinition<RowType> columnDefinition;
 
     private FlexTable table = new FlexTable();
 
@@ -75,12 +75,13 @@ public class PagingTable<RowType extends Serializable> extends Composite
 
     private Image loading = new Image(GWT.getModuleBaseURL() + "/img/tableLoader.gif");
 
-    public PagingTable(TableModel model, ColumnDefinition columnDefinition, int pageSize)
+    public PagingTable(TableModel<RowType> model, ColumnDefinition<RowType> columnDefinition, int pageSize)
     {
         this(model, columnDefinition, null, pageSize);
     }
 
-    public PagingTable(TableModel model, ColumnDefinition columnDefinition, TableActions tableActions, int pageSize)
+    public PagingTable(TableModel<RowType> model, ColumnDefinition<RowType> columnDefinition,
+        TableActions tableActions, int pageSize)
     {
         this.columnDefinition = columnDefinition;
         request.setPageSize(pageSize);
@@ -91,8 +92,8 @@ public class PagingTable<RowType extends Serializable> extends Composite
         displayTable();
     }
 
-    public PagingTable(TableModel model, ColumnDefinition columnDefinition, TableActions tableActions, int pageSize,
-        String sortingColumn, int sortType)
+    public PagingTable(TableModel<RowType> model, ColumnDefinition<RowType> columnDefinition,
+        TableActions tableActions, int pageSize, String sortingColumn, int sortType)
     {
         this.columnDefinition = columnDefinition;
         request.setPageSize(pageSize);
@@ -155,7 +156,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
                 // FACCIO IL REFRESH DELLE ETICHETTE
                 int risTot = risposta.getTotalResults();
                 int start = risposta.getStartRow();
-                int results = risposta.getRows().size();
                 int pageSize = request.getPageSize();
                 int resto = risTot % pageSize;
                 int totPagina = risTot / pageSize;
@@ -183,7 +183,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
                         table.getRowFormatter().setStyleName(i, CSS_PREFIX + "table-tr-odd");
                     }
 
-                    for (Column c : columnDefinition.getColumns())
+                    for (Column<String, RowType> c : columnDefinition.getColumns())
                     {
                         HTML content = new HTML(c.getValue(row));
                         table.setWidget(i, j, content);
@@ -270,7 +270,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
     /**
      * @return the model
      */
-    public TableModel getModel()
+    public TableModel<RowType> getModel()
     {
         return model;
     }
@@ -278,7 +278,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
     /**
      * @param model the model to set
      */
-    public void setModel(TableModel model)
+    public void setModel(TableModel<RowType> model)
     {
         this.model = model;
     }
@@ -286,7 +286,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
     /**
      * @return the columnDefinition
      */
-    public ColumnDefinition getColumnDefinition()
+    public ColumnDefinition<RowType> getColumnDefinition()
     {
         return columnDefinition;
     }
@@ -294,7 +294,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
     /**
      * @param columnDefinition the columnDefinition to set
      */
-    public void setColumnDefinition(ColumnDefinition columnDefinition)
+    public void setColumnDefinition(ColumnDefinition<RowType> columnDefinition)
     {
         this.columnDefinition = columnDefinition;
     }
@@ -313,6 +313,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
         refreshData();
     }
 
+    @SuppressWarnings("unused")
     private void displayHeader()
     {
         table.setCellPadding(0);
@@ -321,7 +322,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
         int j = 0;
         table.getRowFormatter().setStyleName(0, CSS_PREFIX + "table-tr-head");
 
-        for (final Column c : columnDefinition.getColumns())
+        for (final Column<String, RowType> c : columnDefinition.getColumns())
         {
             final HTML header = new HTML(c.getTitle() + "<span class=\"table-sorting\">&nbsp;</span>");
             if (c.isSortable())
@@ -453,11 +454,12 @@ public class PagingTable<RowType extends Serializable> extends Composite
     private class ColumnHandler
     {
 
-        public void onClick(Column colonnaOrdinamento, HTML header)
+        @SuppressWarnings("unused")
+        public void onClick(Column<String, RowType> colonnaOrdinamento, HTML header)
         {
             // ELIMINAZIONE FRECCIA DA COLONNE
             int j = 0;
-            for (Column c : columnDefinition.getColumns())
+            for (Column<String, RowType> c : columnDefinition.getColumns())
             {
                 NodeList<Element> colonne = table.getWidget(0, j).getElement().getElementsByTagName("span");
                 if (colonne != null && colonne.getLength() > 0)

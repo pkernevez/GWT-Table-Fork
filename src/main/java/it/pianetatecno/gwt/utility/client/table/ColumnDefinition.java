@@ -15,26 +15,32 @@
  */
 package it.pianetatecno.gwt.utility.client.table;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * This class define the list of columns of a {@code PaginTable}
  */
-public class ColumnDefinition {
+public class ColumnDefinition<RowType extends Serializable>
+{
 
-    private List<Column> columns;
+    private List<Column<String, RowType>> columns;
 
-    public ColumnDefinition() {
-        columns = new LinkedList<Column>();
+    public ColumnDefinition()
+    {
+        columns = new LinkedList<Column<String, RowType>>();
     }
 
     /**
      * Add a column to the list of columns
+     * 
      * @param c the column to add
      */
-    public void addColumn(Column c){
-        if(c != null){
+    public void addColumn(Column<String, RowType> c)
+    {
+        if (c != null)
+        {
             getColumns().add(c);
         }
     }
@@ -42,14 +48,16 @@ public class ColumnDefinition {
     /**
      * @return the columns
      */
-    public List<Column> getColumns() {
+    public List<Column<String, RowType>> getColumns()
+    {
         return columns;
     }
 
     /**
      * @param columns the columns to set
      */
-    public void setColumns(List<Column> columns) {
+    public void setColumns(List<Column<String, RowType>> columns)
+    {
         this.columns = columns;
     }
 }

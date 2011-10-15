@@ -16,12 +16,12 @@
 
 package it.pianetatecno.gwt.utility.client.images;
 
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.google.gwt.user.client.ui.ImageBundle;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ImageResource;
 
+public interface ImagesApp extends ClientBundle
+{
 
-public interface ImagesApp extends ImageBundle {
-
-    AbstractImagePrototype iconCloseSmall();
+    ImageResource iconCloseSmall();
 
 }

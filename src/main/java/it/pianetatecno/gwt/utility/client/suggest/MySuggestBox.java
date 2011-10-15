@@ -15,6 +15,8 @@
  */
 package it.pianetatecno.gwt.utility.client.suggest;
 
+import it.pianetatecno.gwt.utility.client.images.ImagesApp;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -28,24 +30,29 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
-import it.pianetatecno.gwt.utility.client.images.ImagesApp;
 
 /**
  * This is a simple suggest box with a close button on its right.
- *
+ * 
  */
-public class MySuggestBox extends Composite implements HasClickHandlers {
+public class MySuggestBox extends Composite implements HasClickHandlers
+{
 
     private static final String CSS_ERROR = "textBox-error";
-    private static final String  CSS_PREFIX = "gwtutility-";
+
+    private static final String CSS_PREFIX = "gwtutility-";
+
     private ImagesApp images = GWT.create(ImagesApp.class);
+
     private SuggestBox suggestBox;
+
     private Image immagine;
 
-    public MySuggestBox(SuggestOracle oracle) {
+    public MySuggestBox(SuggestOracle oracle)
+    {
         HorizontalPanel panel = new HorizontalPanel();
-        immagine = images.iconCloseSmall().createImage();
-        immagine.setStyleName(CSS_PREFIX+"pointer");
+        immagine = new Image(images.iconCloseSmall());
+        immagine.setStyleName(CSS_PREFIX + "pointer");
 
         suggestBox = new SuggestBox(oracle);
         panel.add(suggestBox);
@@ -61,42 +68,52 @@ public class MySuggestBox extends Composite implements HasClickHandlers {
     /**
      * @return the suggestBox
      */
-    public SuggestBox getSuggestBox() {
+    public SuggestBox getSuggestBox()
+    {
         return suggestBox;
     }
 
-    public String getText() {
+    public String getText()
+    {
         return suggestBox.getText();
     }
 
-    public void markInvalid() {
-        suggestBox.getTextBox().addStyleName(CSS_PREFIX+CSS_ERROR);
+    public void markInvalid()
+    {
+        suggestBox.getTextBox().addStyleName(CSS_PREFIX + CSS_ERROR);
     }
 
-    private void addHandler() {
-        suggestBox.getTextBox().addBlurHandler(new BlurHandler() {
+    private void addHandler()
+    {
+        suggestBox.getTextBox().addBlurHandler(new BlurHandler()
+        {
 
             @Override
-            public void onBlur(BlurEvent event) {
-                suggestBox.getTextBox().removeStyleName(CSS_PREFIX+CSS_ERROR);
+            public void onBlur(BlurEvent event)
+            {
+                suggestBox.getTextBox().removeStyleName(CSS_PREFIX + CSS_ERROR);
             }
         });
 
-        immagine.addClickHandler(new ClickHandler() {
+        immagine.addClickHandler(new ClickHandler()
+        {
 
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(ClickEvent event)
+            {
                 fireEvent(event);
             }
         });
     }
 
     @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
+    public HandlerRegistration addClickHandler(ClickHandler handler)
+    {
         return addHandler(handler, ClickEvent.getType());
     }
 
-    public void setText(String text){
+    public void setText(String text)
+    {
         suggestBox.setText(text);
     }
 }
