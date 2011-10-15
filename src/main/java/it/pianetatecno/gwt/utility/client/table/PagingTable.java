@@ -183,10 +183,9 @@ public class PagingTable<RowType extends Serializable> extends Composite
                         table.getRowFormatter().setStyleName(i, CSS_PREFIX + "table-tr-odd");
                     }
 
-                    for (Column<String, RowType> c : columnDefinition.getColumns())
+                    for (Column<RowType> c : columnDefinition.getColumns())
                     {
-                        HTML content = new HTML(c.getValue(row));
-                        table.setWidget(i, j, content);
+                        table.setWidget(i, j, c.getValue(row));
                         table.getFlexCellFormatter().setStyleName(i, j, CSS_PREFIX + "table-td");
                         table.getFlexCellFormatter().setColSpan(i, j, 1);
                         j++;
@@ -322,7 +321,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
         int j = 0;
         table.getRowFormatter().setStyleName(0, CSS_PREFIX + "table-tr-head");
 
-        for (final Column<String, RowType> c : columnDefinition.getColumns())
+        for (final Column<RowType> c : columnDefinition.getColumns())
         {
             final HTML header = new HTML(c.getTitle() + "<span class=\"table-sorting\">&nbsp;</span>");
             if (c.isSortable())
@@ -455,11 +454,11 @@ public class PagingTable<RowType extends Serializable> extends Composite
     {
 
         @SuppressWarnings("unused")
-        public void onClick(Column<String, RowType> colonnaOrdinamento, HTML header)
+        public void onClick(Column<RowType> colonnaOrdinamento, HTML header)
         {
             // ELIMINAZIONE FRECCIA DA COLONNE
             int j = 0;
-            for (Column<String, RowType> c : columnDefinition.getColumns())
+            for (Column<RowType> c : columnDefinition.getColumns())
             {
                 NodeList<Element> colonne = table.getWidget(0, j).getElement().getElementsByTagName("span");
                 if (colonne != null && colonne.getLength() > 0)

@@ -17,12 +17,14 @@ package it.pianetatecno.gwt.utility.client.table;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.ui.Widget;
+
 /**
  * This class define a single Column. Every column has two types: ColType and RowType. The first is the data type that
  * is displayed in the header of the {@code PagingTable}. The second is the type of object that will be dispayed in the
  * rows of the table. The propertyName must be the name of the property of the bean that is stored in the DB.
  */
-public abstract class Column<ColType extends String, RowType extends Serializable>
+public abstract class Column<RowType extends Serializable>
 {
     public static final int SORTING_ASC = 0;
 
@@ -49,7 +51,7 @@ public abstract class Column<ColType extends String, RowType extends Serializabl
     /**
      * @return the value
      */
-    public abstract ColType getValue(RowType value);
+    public abstract Widget getValue(RowType value);
 
     /**
      * @return the sortable

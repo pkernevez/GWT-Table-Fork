@@ -25,11 +25,11 @@ import java.util.List;
 public class ColumnDefinition<RowType extends Serializable>
 {
 
-    private List<Column<String, RowType>> columns;
+    private List<Column<RowType>> columns;
 
     public ColumnDefinition()
     {
-        columns = new LinkedList<Column<String, RowType>>();
+        columns = new LinkedList<Column<RowType>>();
     }
 
     /**
@@ -37,7 +37,7 @@ public class ColumnDefinition<RowType extends Serializable>
      * 
      * @param c the column to add
      */
-    public void addColumn(Column<String, RowType> c)
+    public void addColumn(Column<RowType> c)
     {
         if (c != null)
         {
@@ -48,7 +48,7 @@ public class ColumnDefinition<RowType extends Serializable>
     /**
      * @return the columns
      */
-    public List<Column<String, RowType>> getColumns()
+    public List<Column<RowType>> getColumns()
     {
         return columns;
     }
@@ -56,7 +56,7 @@ public class ColumnDefinition<RowType extends Serializable>
     /**
      * @param columns the columns to set
      */
-    public void setColumns(List<Column<String, RowType>> columns)
+    public void setColumns(List<Column<RowType>> columns)
     {
         this.columns = columns;
     }
