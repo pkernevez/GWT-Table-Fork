@@ -69,39 +69,26 @@ public class PagingTable<RowType extends Serializable> extends Composite
 
     private ActionHandler<RowType> actionHandler;
 
-    private TableActions tableActions;
-
     private HorizontalPanel footer = new HorizontalPanel();
 
     private Image loading = new Image(GWT.getModuleBaseURL() + "/img/tableLoader.gif");
 
     public PagingTable(TableModel<RowType> model, ColumnDefinition<RowType> columnDefinition, int pageSize)
     {
-        this(model, columnDefinition, null, pageSize);
+        this(model, columnDefinition, pageSize, null, -1);
     }
 
-    public PagingTable(TableModel<RowType> model, ColumnDefinition<RowType> columnDefinition,
-        TableActions tableActions, int pageSize)
+    public PagingTable(TableModel<RowType> model, ColumnDefinition<RowType> columnDefinition, int pageSize,
+        String sortingColumn, int sortType)
     {
         this.columnDefinition = columnDefinition;
         request.setPageSize(pageSize);
         this.model = model;
-        this.tableActions = tableActions;
-
-        // VISUALIZZO LA TABELLA
-        displayTable();
-    }
-
-    public PagingTable(TableModel<RowType> model, ColumnDefinition<RowType> columnDefinition,
-        TableActions tableActions, int pageSize, String sortingColumn, int sortType)
-    {
-        this.columnDefinition = columnDefinition;
-        request.setPageSize(pageSize);
-        this.model = model;
-        this.tableActions = tableActions;
-        request.setSortingColumn(sortingColumn);
-        request.setSortType(sortType);
-
+        if (sortingColumn != null)
+        {
+            request.setSortingColumn(sortingColumn);
+            request.setSortType(sortType);
+        }
         // VISUALIZZO LA TABELLA
         displayTable();
     }
@@ -208,37 +195,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
                         }
                         j++;
                     }
-                    // DISEGNO LE ACTIONS
-                    if (tableActions != null)
-                    {
-                        for (final TableActions.TableAction action : tableActions.getListActions())
-                        {
-                            HTML azioneIcon = new HTML(action.getImage().getElement().getString());
-                            if (action.getAlign() != null)
-                            {
-                                azioneIcon.setHorizontalAlignment(action.getAlign());
-                            }
-                            azioneIcon.setStyleName("");
-                            azioneIcon.setTitle(action.getActionName());
-                            table.setWidget(i, j, azioneIcon);
-                            table.getFlexCellFormatter().setStyleName(i, j, CSS_PREFIX + "table-td-icon");
 
-                            if (action.getAlign() != null)
-                            {
-                                table.getFlexCellFormatter().setHorizontalAlignment(i, j, action.getAlign());
-                            }
-                            azioneIcon.addClickHandler(new ClickHandler()
-                            {
-
-                                @Override
-                                public void onClick(ClickEvent event)
-                                {
-                                    actionHandler.onActionPerformed(action.getActionName(), row);
-                                }
-                            });
-                            j++;
-                        }
-                    }
                     i++;
                 }
                 if (table.getRowCount() > i)
@@ -358,17 +315,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
             table.getFlexCellFormatter().setStyleName(0, j, CSS_PREFIX + "table-td-head");
             j++;
         }
-        // DISEGNO LE COLONNE VUOTE PER LE ACTIONS
-        if (tableActions != null)
-        {
-            for (TableActions.TableAction action : tableActions.getListActions())
-            {
-                table.setWidget(0, j, new HTML(""));
-                table.getFlexCellFormatter().setStyleName(0, j, CSS_PREFIX + "table-td-head");
-                j++;
-            }
-        }
-
     }
 
     private Widget displayFooter()
