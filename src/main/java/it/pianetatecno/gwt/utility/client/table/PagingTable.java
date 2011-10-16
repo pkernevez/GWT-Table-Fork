@@ -183,11 +183,29 @@ public class PagingTable<RowType extends Serializable> extends Composite
                         table.getRowFormatter().setStyleName(i, CSS_PREFIX + "table-tr-odd");
                     }
 
-                    for (Column<RowType> c : columnDefinition.getColumns())
+                    for (final Column<RowType> c : columnDefinition.getColumns())
                     {
-                        table.setWidget(i, j, c.getValue(row));
-                        table.getFlexCellFormatter().setStyleName(i, j, CSS_PREFIX + "table-td");
+                        HTML tCell = c.getValue(row);
+                        table.setWidget(i, j, tCell);
+                        table.getFlexCellFormatter().setStyleName(i, j, CSS_PREFIX + c.getStyle());
                         table.getFlexCellFormatter().setColSpan(i, j, 1);
+                        if (c.getAlign() != null)
+                        {
+                            table.getFlexCellFormatter().setHorizontalAlignment(i, j, c.getAlign());
+                        }
+                        if (c.getActionName() != null)
+                        {
+                            tCell.addClickHandler(new ClickHandler()
+                            {
+
+                                @Override
+                                public void onClick(ClickEvent event)
+                                {
+                                    actionHandler.onActionPerformed(c.getActionName(), row);
+                                }
+                            });
+                            tCell.setTitle(c.getActionName());
+                        }
                         j++;
                     }
                     // DISEGNO LE ACTIONS
@@ -195,7 +213,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
                     {
                         for (final TableActions.TableAction action : tableActions.getListActions())
                         {
-                            HTML azioneIcon = new HTML(action.getImageHtml());
+                            HTML azioneIcon = new HTML(action.getImage().getElement().getString());
                             if (action.getAlign() != null)
                             {
                                 azioneIcon.setHorizontalAlignment(action.getAlign());
@@ -468,21 +486,24 @@ public class PagingTable<RowType extends Serializable> extends Composite
                 j++;
             }
 
-            if (!colonnaOrdinamento.getPropertyName().equalsIgnoreCase(request.getSortingColumn()))
+            if (colonnaOrdinamento.getPropertyName() != null)
             {
-                request.setSortingColumn(colonnaOrdinamento.getPropertyName());
-                request.setSortType(Column.SORTING_ASC);
-                header.getElement().getElementsByTagName("span").getItem(0).setInnerText("▲");
-            } else
-            {
-                if (request.getSortType() == Column.SORTING_ASC)
+                if (!colonnaOrdinamento.getPropertyName().equalsIgnoreCase(request.getSortingColumn()))
                 {
-                    request.setSortType(Column.SORTING_DESC);
-                    header.getElement().getElementsByTagName("span").getItem(0).setInnerText("▼");
-                } else
-                {
+                    request.setSortingColumn(colonnaOrdinamento.getPropertyName());
                     request.setSortType(Column.SORTING_ASC);
                     header.getElement().getElementsByTagName("span").getItem(0).setInnerText("▲");
+                } else
+                {
+                    if (request.getSortType() == Column.SORTING_ASC)
+                    {
+                        request.setSortType(Column.SORTING_DESC);
+                        header.getElement().getElementsByTagName("span").getItem(0).setInnerText("▼");
+                    } else
+                    {
+                        request.setSortType(Column.SORTING_ASC);
+                        header.getElement().getElementsByTagName("span").getItem(0).setInnerText("▲");
+                    }
                 }
             }
             // Visualizzo la prima pagina poiché cambia la logica

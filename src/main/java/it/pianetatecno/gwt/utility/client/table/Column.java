@@ -17,7 +17,8 @@ package it.pianetatecno.gwt.utility.client.table;
 
 import java.io.Serializable;
 
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 
 /**
  * This class define a single Column. Every column has two types: ColType and RowType. The first is the data type that
@@ -37,11 +38,18 @@ public abstract class Column<RowType extends Serializable>
 
     private boolean sortable = true;
 
-    public Column(String title, String propertyName, boolean sortable)
+    private HorizontalAlignmentConstant horizontalAlignement;
+
+    private String actionName;
+
+    public Column(String title, String propertyName, boolean sortable, HorizontalAlignmentConstant pAlignement,
+        String pActionName)
     {
         this.title = title;
         this.propertyName = propertyName;
         this.sortable = sortable;
+        this.horizontalAlignement = pAlignement;
+        actionName = pActionName;
     }
 
     public Column()
@@ -51,7 +59,7 @@ public abstract class Column<RowType extends Serializable>
     /**
      * @return the value
      */
-    public abstract Widget getValue(RowType value);
+    public abstract HTML getValue(RowType value);
 
     /**
      * @return the sortable
@@ -59,14 +67,6 @@ public abstract class Column<RowType extends Serializable>
     public boolean isSortable()
     {
         return sortable;
-    }
-
-    /**
-     * @param sortable the sortable to set
-     */
-    public void setSortable(boolean sortable)
-    {
-        this.sortable = sortable;
     }
 
     /**
@@ -78,14 +78,6 @@ public abstract class Column<RowType extends Serializable>
     }
 
     /**
-     * @param propertyName the propertyName to set
-     */
-    public void setPropertyName(String propertyName)
-    {
-        this.propertyName = propertyName;
-    }
-
-    /**
      * @return the title
      */
     public String getTitle()
@@ -93,11 +85,19 @@ public abstract class Column<RowType extends Serializable>
         return title;
     }
 
-    /**
-     * @param title the title to set
-     */
-    public void setTitle(String title)
+    public String getStyle()
     {
-        this.title = title;
+        return "table-td";
     }
+
+    public HorizontalAlignmentConstant getAlign()
+    {
+        return horizontalAlignement;
+    }
+
+    public String getActionName()
+    {
+        return actionName;
+    }
+
 }

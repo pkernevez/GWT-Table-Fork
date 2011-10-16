@@ -15,90 +15,106 @@
  */
 package it.pianetatecno.gwt.utility.client.table;
 
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
+import com.google.gwt.user.client.ui.Image;
+
 /**
- * This class is used from Widget {@code PagingTable}. This class permit you
- * to define some actions that will be available to all rows of the table.
- * Every action run the onActionPerformed method so that the user can be
- * catch the event. The classical events may be: edit, delete and so on.
+ * This class is used from Widget {@code PagingTable}. This class permit you to define some actions that will be
+ * available to all rows of the table. Every action run the onActionPerformed method so that the user can be catch the
+ * event. The classical events may be: edit, delete and so on.
  **/
-public class TableActions {
+public class TableActions
+{
 
     private List<TableAction> listActions = new LinkedList<TableAction>();
 
-    public void addAction(String actionName,String imageHtml){
-        getListActions().add(new TableAction(actionName, imageHtml));
+    public void addAction(String actionName, Image image)
+    {
+        getListActions().add(new TableAction(actionName, image));
     }
 
-    public void addAction(String actionName,String imageHtml,HorizontalAlignmentConstant alignment){
-        getListActions().add(new TableAction(actionName, imageHtml,alignment));
+    public void addAction(String actionName, Image image, HorizontalAlignmentConstant alignment)
+    {
+        getListActions().add(new TableAction(actionName, image, alignment));
     }
 
     /**
      * @return the listActions
      */
-    public List<TableAction> getListActions() {
+    public List<TableAction> getListActions()
+    {
         return listActions;
     }
 
-    protected class TableAction {
+    protected class TableAction
+    {
 
         private String actionName;
-        private String imageHtml;
+
+        private Image image;
+
         private HorizontalAlignmentConstant align;
 
-        public TableAction(String actionName, String imageHtml) {
+        public TableAction(String actionName, Image pImage)
+        {
             this.actionName = actionName;
-            this.imageHtml = imageHtml;
-        }
-        public TableAction(String actionName, String imageHtml,HorizontalAlignmentConstant alignment) {
-            this(actionName,imageHtml);
-            this.align = alignment;
+            this.image = pImage;
         }
 
+        public TableAction(String actionName, Image pImage, HorizontalAlignmentConstant alignment)
+        {
+            this(actionName, pImage);
+            this.align = alignment;
+        }
 
         /**
          * @return the actionName
          */
-        public String getActionName() {
+        public String getActionName()
+        {
             return actionName;
         }
 
         /**
          * @param actionName the actionName to set
          */
-        public void setActionName(String actionName) {
+        public void setActionName(String actionName)
+        {
             this.actionName = actionName;
         }
 
         /**
          * @return the imageHtml
          */
-        public String getImageHtml() {
-            return imageHtml;
+        public Image getImage()
+        {
+            return image;
         }
 
         /**
          * @param imageHtml the imageHtml to set
          */
-        public void setImageHtml(String imageHtml) {
-            this.imageHtml = imageHtml;
+        public void setImage(Image pImage)
+        {
+            this.image = pImage;
         }
 
         /**
          * @return the align
          */
-        public HorizontalAlignmentConstant getAlign() {
+        public HorizontalAlignmentConstant getAlign()
+        {
             return align;
         }
 
         /**
          * @param align the align to set
          */
-        public void setAlign(HorizontalAlignmentConstant align) {
+        public void setAlign(HorizontalAlignmentConstant align)
+        {
             this.align = align;
         }
     }
