@@ -287,7 +287,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
         refreshData();
     }
 
-    @SuppressWarnings("unused")
     private void displayHeader()
     {
         table.setCellPadding(0);
@@ -326,7 +325,7 @@ public class PagingTable<RowType extends Serializable> extends Composite
         btnNext.addStyleName("valign-middle");
         btnNext.setWidth("34px");
         btnNext.setHeight("21px");
-        Button btnPrev = new Button("◄");
+        Button btnPrev = new Button("◀");
         btnPrev.addStyleName("valign-middle");
         btnPrev.setWidth("34px");
         btnPrev.setHeight("21px");
