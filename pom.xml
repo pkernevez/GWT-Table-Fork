@@ -41,6 +41,7 @@
 				<directory>src/main/java</directory>
 				<includes>
 					<include>**/*.gwt.xml</include>
+					<include>**/*.properties</include>
 					<!--  Par défaut il faut inclure les sources Java pour GWT -->
 					<include>**/*.java</include>
 				</includes>
