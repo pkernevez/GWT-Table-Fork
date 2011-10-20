@@ -74,7 +74,6 @@ public abstract class SuggestList<Type extends Serializable> extends Composite
         linkAdd.addClickHandler(new ClickHandler()
         {
 
-            @Override
             public void onClick(ClickEvent event)
             {
                 if (listaSuggest.size() < maxListSize)
@@ -199,7 +198,6 @@ public abstract class SuggestList<Type extends Serializable> extends Composite
     private class RemoveBoxIspettoreHandler implements ClickHandler
     {
 
-        @Override
         public void onClick(ClickEvent event)
         {
             listaSuggest.remove(event.getSource());

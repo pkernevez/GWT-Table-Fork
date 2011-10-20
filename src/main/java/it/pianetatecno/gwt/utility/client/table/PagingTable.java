@@ -127,7 +127,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
         model.requestRows(request, new Callback<RowType>()
         {
 
-            @Override
             public void onFailure(Throwable caught)
             {
                 footer.remove(loading);
@@ -135,7 +134,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
                 Window.alert(constants.error() + caught.getMessage());
             }
 
-            @Override
             public void onRowsReady(Request request, Response<RowType> response)
             {
                 risposta = response;
@@ -185,7 +183,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
                             tCell.addClickHandler(new ClickHandler()
                             {
 
-                                @Override
                                 public void onClick(ClickEvent event)
                                 {
                                     actionHandler.onActionPerformed(c.getActionName(), row);
@@ -302,8 +299,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
             {
                 header.addClickHandler(new ClickHandler()
                 {
-
-                    @Override
                     public void onClick(ClickEvent event)
                     {
                         columnHandler.onClick(c, header);
@@ -332,8 +327,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
 
         btnNext.addClickHandler(new ClickHandler()
         {
-
-            @Override
             public void onClick(ClickEvent event)
             {
                 if (risposta != null)
@@ -354,8 +347,6 @@ public class PagingTable<RowType extends Serializable> extends Composite
 
         btnPrev.addClickHandler(new ClickHandler()
         {
-
-            @Override
             public void onClick(ClickEvent event)
             {
                 if (risposta != null)

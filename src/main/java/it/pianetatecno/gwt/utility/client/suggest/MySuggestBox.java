@@ -88,7 +88,6 @@ public class MySuggestBox extends Composite implements HasClickHandlers
         suggestBox.getTextBox().addBlurHandler(new BlurHandler()
         {
 
-            @Override
             public void onBlur(BlurEvent event)
             {
                 suggestBox.getTextBox().removeStyleName(CSS_PREFIX + CSS_ERROR);
@@ -98,7 +97,6 @@ public class MySuggestBox extends Composite implements HasClickHandlers
         immagine.addClickHandler(new ClickHandler()
         {
 
-            @Override
             public void onClick(ClickEvent event)
             {
                 fireEvent(event);
@@ -106,7 +104,6 @@ public class MySuggestBox extends Composite implements HasClickHandlers
         });
     }
 
-    @Override
     public HandlerRegistration addClickHandler(ClickHandler handler)
     {
         return addHandler(handler, ClickEvent.getType());
