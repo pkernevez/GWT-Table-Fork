@@ -15,9 +15,9 @@ public class ColumnAction<RowType extends Serializable> extends Column<RowType>
         super();
     }
 
-    public ColumnAction(String pActionName, Image pImage, HorizontalAlignmentConstant pAlignement)
+    public ColumnAction(String pTitle, String pActionName, Image pImage, HorizontalAlignmentConstant pAlignement)
     {
-        super("", null, false, pAlignement, pActionName);
+        super(pTitle, null, false, pAlignement, pActionName);
         image = pImage;
     }
 
